@@ -1,0 +1,142 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+local Window = OrionLib:MakeWindow({Name = "Money Clicker Inc                           Script by Sirex", HidePremium = false, IntroEnabled = false, SaveConfig = true, ConfigFolder = "Sirex MC"})
+
+-- Values
+
+_G.autoclick = true
+_G.autoupgr = true
+_G.upgradeValue = 1
+_G.autoclickg = true
+_G.autoupgrg = true
+_G.gemupgradeValue = 1
+_G.autoprest = true
+
+-- functions
+
+function autoclick()
+	while _G.autoclick == true do
+		game:GetService("ReplicatedStorage").Events.ClickMoney:FireServer()
+		wait(.000000000000001)
+	end
+end
+
+function autoupgrade()
+	while _G.autoupgr == true do
+		game:GetService("ReplicatedStorage").Events.Upgrade:FireServer(_G.upgradeValue)
+		wait(.1)
+	end
+end
+
+function autoclickgem()
+	while _G.autoclickg == true do
+		game:GetService("ReplicatedStorage").Events.ClickMoney.ClickGem:FireServer()
+		wait(.000000000000001)
+	end
+end
+
+function autoupgradegem()
+	while _G.autoupgrg == true do
+		game:GetService("ReplicatedStorage").Events.Upgrade.GemUpgrade:FireServer(_G.upgradegemValue)
+		wait(.1)
+	end
+end
+
+function autoprestige()
+	while _G.autoprest == true do
+		game:GetService("ReplicatedStorage").Events.Prestige:FireServer()
+		wait(5)
+	end
+end
+
+-- tabs
+
+local AutoTab = Window:MakeTab({
+	Name = "Autofarm",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local AutoTab2 = Window:MakeTab({
+	Name = "Autofarm 2",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+-- gui
+
+
+AutoTab:AddToggle({
+	Name = "Autoclick",
+	Default = false,
+	Callback = function(Value)
+		_G.autoclick = Value
+		autoclick()
+	end    
+})
+
+AutoTab:AddToggle({
+	Name = "AutoPrestige",
+	Default = false,
+	Callback = function(Value)
+		_G.autoprest = Value
+		autoprestige()
+	end    
+})
+
+AutoTab:AddToggle({
+	Name = "AutoUpgrade",
+	Default = false,
+	Callback = function(Value)
+		_G.autoupgr = Value
+		autoupgrade()
+	end    
+})
+
+
+AutoTab:AddSlider({
+	Name = "AutoUpgrade Value",
+	Min = 1,
+	Max = 8,
+	Default = 1,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Upgrade",
+	Callback = function(Value)
+		_G.upgradeValue = Value
+	end    
+})
+
+
+
+AutoTab2:AddToggle({
+	Name = "Autoclick Gems",
+	Default = false,
+	Callback = function(Value)
+		_G.autoclickg = Value
+		autoclickgem()
+	end    
+})
+
+AutoTab2:AddToggle({
+	Name = "AutoUpgrade Gems",
+	Default = false,
+	Callback = function(Value)
+		_G.autoupgrg = Value
+		autoupgradegem()
+	end    
+})
+
+
+AutoTab2:AddSlider({
+	Name = "AutoUpgrade Gems Value",
+	Min = 1,
+	Max = 3,
+	Default = 1,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Upgrade",
+	Callback = function(Value)
+		_G.upgradegemValue = Value
+	end    
+})
